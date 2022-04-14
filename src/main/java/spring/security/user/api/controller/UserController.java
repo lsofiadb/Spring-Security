@@ -36,6 +36,7 @@ public class UserController {
     }
 
     @PostMapping("/role/addRoleToUser")
+    //? means that the response body will be empty
     public ResponseEntity<?> addRoleToUser(@RequestBody RoleToUserForm roleToUserForm){
         roleService.addRoleToUser(roleToUserForm.getUsername(), roleToUserForm.getRoleName());
         return ResponseEntity.ok().build();
