@@ -13,7 +13,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import spring.security.user.api.filter.CustomAuthenticationFilter;
+import spring.security.user.api.filter.CustomAuthorizationFilter;
 
 //Spring will be in charge of configuration
 @Configuration @EnableWebSecurity @RequiredArgsConstructor
@@ -47,6 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { //this class 
         // http.authorizeRequests().anyRequest().permitAll(); we don´t want this because it´s necessary control the resource access with user roles
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
+        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
