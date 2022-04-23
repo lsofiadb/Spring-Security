@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { //this class 
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         //controlling resources access with endpoints!!!
-        http.authorizeRequests().antMatchers("/api/login/**").permitAll(); //we don't have to deal with this endpoint, Spring does it for us, although we can configure it
+        http.authorizeRequests().antMatchers("/api/login/**", "/api/token/refresh/**").permitAll(); //we don't have to deal with this endpoint, Spring does it for us, although we can configure it
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/user/**").hasAnyAuthority("ROLE_USER");
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/user/save/**").hasAnyAuthority("ROLE_ADMIN");
         // http.authorizeRequests().anyRequest().permitAll(); we don´t want this because it´s necessary control the resource access with user roles
