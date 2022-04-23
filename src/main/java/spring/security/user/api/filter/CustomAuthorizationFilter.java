@@ -28,17 +28,18 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+
 @Slf4j
 public class CustomAuthorizationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         //verifying login endpoint due to every user can access to this resource
-        if(request.getServletPath().equals("/api/login")){
+        if(request.getServletPath().equals("/api/login") || request.getServletPath().equals("/api/token/refresh")){
             filterChain.doFilter(request, response);
         } else{
             String authorizationHeader = request.getHeader(AUTHORIZATION);
-            if(authorizationHeader !=null && authorizationHeader.startsWith("Bearer ")){
+            if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
                 try {
                     String token = authorizationHeader.substring("Bearer ".length());
                     Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
@@ -47,7 +48,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                     String username = decodedJWT.getSubject();
                     String [] roles = decodedJWT.getClaim("roles").asArray(String.class);
                     Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-                    stream(roles).forEach(role ->{
+                    stream(roles).forEach(role -> {
                         authorities.add(new SimpleGrantedAuthority(role));
                             });
                     UsernamePasswordAuthenticationToken authenticationToken =
