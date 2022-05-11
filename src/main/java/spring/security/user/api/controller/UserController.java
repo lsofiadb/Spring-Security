@@ -27,7 +27,7 @@ public class UserController {
         return ResponseEntity.ok().body(userService.getUsers());
     }
 
-    @GetMapping("/test")
+    @GetMapping("/test/hello")
     public ResponseEntity<String> getTest(){
         return ResponseEntity.ok().body("Helloo");
     }

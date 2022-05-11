@@ -17,3 +17,7 @@ HACK
 CTRL+O //see override methods in intellij
 ```
 
+The antMatchers() is a Springboot HTTP method used to configure the URL paths from which the Springboot application security should permit requests based on the user’s roles. The antmatchers() method is an overloaded method that receives both the HTTP request methods and the specific URLs as its arguments.
+[Nice example](https://www.section.io/engineering-education/springboot-antmatchers/).
+
+
