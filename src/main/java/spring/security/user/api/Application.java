@@ -45,10 +45,5 @@ public class Application {
 		};
 	}
 
-	//When application will start we will be able to use this bean
-	@Bean
-	BCryptPasswordEncoder passwordEncoder(){
-		return new BCryptPasswordEncoder();
-	}
 
 }

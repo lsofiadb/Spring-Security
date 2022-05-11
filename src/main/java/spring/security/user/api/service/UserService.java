@@ -1,6 +1,6 @@
 package spring.security.user.api.service;
 
-import org.apache.catalina.User;
+
 import spring.security.user.api.model.AppUser;
 
 import java.util.List;
